@@ -12,6 +12,10 @@
             "homepage": "http://dracony.org"
         }
     ],
+    "require": {
+        "php": ">=5.4.0",
+        "phpunit/phpunit": "~4.8"
+    },
     "autoload": {
         "psr-0": {"PHPixie": "src/"}
     },
