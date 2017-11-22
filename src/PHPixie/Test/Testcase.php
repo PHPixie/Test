@@ -2,13 +2,16 @@
 
 namespace PHPixie\Test;
 
-class Testcase extends \PHPUnit_Framework_TestCase
+class Testcase extends \PHPUnit\Framework\TestCase
 {
     protected function quickMock($class, $methods = array())
     {
-        return $this->getMock($class, $methods, array(), '', false);
+        return $this->getMockBuilder($class)
+            ->setMethods($methods)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
-    
+
     protected function abstractMock($class, $methods = array())
     {
         if(empty($methods)){
@@ -18,9 +21,9 @@ class Testcase extends \PHPUnit_Framework_TestCase
         }
         return $this->getMockForAbstractClass($class, array(), '', false, false, true, $methods);
     }
-    
+
     protected function method($mock, $method, $return, $with = null, $at = null, $returnCallable = false) {
-        
+
         if($at === null) {
             $at = $this->any();
         }elseif($at === 'once')
@@ -29,7 +32,7 @@ class Testcase extends \PHPUnit_Framework_TestCase
         }else{
             $at = $this->at($at);
         }
-        
+
         $method = $mock
             ->expects($at)
             ->method($method);
@@ -45,7 +48,7 @@ class Testcase extends \PHPUnit_Framework_TestCase
         }else
             $method->will($this->returnValue($return));
     }
-    
+
     protected function assertException($callback, $exceptionClass)
     {
         $except = false;
@@ -56,7 +59,7 @@ class Testcase extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals(true, $except);
     }
-    
+
     protected function assertInstance($object, $class, $propertyMap = array())
     {
         $this->assertInstanceOf($class, $object);
@@ -64,5 +67,9 @@ class Testcase extends \PHPUnit_Framework_TestCase
             $this->assertAttributeEquals($value, $name, $object);
         }
     }
-    
+
+    public function preventUseless()
+    {
+        $this->assertEquals(1, 1);
+    }
 }
