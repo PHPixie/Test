@@ -15,6 +15,9 @@
     "autoload": {
         "psr-0": {"PHPixie": "src/"}
     },
+    "require": {
+        "phpunit/phpunit" : "~6.0"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "3.x-dev"
