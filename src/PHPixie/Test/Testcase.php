@@ -12,6 +12,22 @@ class Testcase extends \PHPUnit\Framework\TestCase
             ->getMock();
     }
 
+    protected function getMock($class, $methods, $constructorArgs)
+    {
+        return $this->getMockBuilder($class)
+            ->setMethods($methods)
+            ->setConstructorArgs($constructorArgs)
+            ->getMock();
+    }
+
+    protected function setExpectedException($class, $message = null)
+    {
+        $this->expectException($class);
+        if ($message) {
+            $this->expectExceptionMessage($message);
+        }
+    }
+
     protected function abstractMock($class, $methods = array())
     {
         if(empty($methods)){
